@@ -1,28 +1,26 @@
 <?php
-// Iniciar sesión
+
 session_start();
 
-// Incluir la conexión a la base de datos
-include 'conexion.php'; // Asegúrate de que el archivo conexion.php esté incluido
 
-// Verificar si el usuario ha iniciado sesión y tiene el rol adecuado
+include 'conexion.php'; 
+
+
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 1) {
-    // Redirigir al inicio de sesión si no tiene permiso
     header("Location: login.php");
     exit();
 }
 
-// Recuperar datos del usuario desde la sesión
-$nombre = $_SESSION['usuario']; // Nombre del usuario
-$cargo = isset($_SESSION['cargo']) ? $_SESSION['cargo'] : "Sin definir"; // Cargo del usuario, si está disponible
 
-// Manejar el formulario para agregar noticias
+$nombre = $_SESSION['usuario']; 
+$cargo = isset($_SESSION['cargo']) ? $_SESSION['cargo'] : "Sin definir"; 
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
     $contenido = filter_input(INPUT_POST, 'contenido', FILTER_SANITIZE_STRING);
 
     if ($titulo && $contenido) {
-        // Preparar la consulta para insertar la noticia en la base de datos
         $stmt = $conn->prepare("INSERT INTO noticias (titulo, contenido) VALUES (?, ?)");
         $stmt->bind_param("ss", $titulo, $contenido);
         if ($stmt->execute()) {
@@ -36,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Recuperar noticias existentes
 $result = $conn->query("SELECT id, titulo, contenido, fecha_publicacion FROM noticias ORDER BY fecha_publicacion DESC");
 ?>
 
@@ -116,7 +113,7 @@ $result = $conn->query("SELECT id, titulo, contenido, fecha_publicacion FROM not
             text-align: center;
             padding: 10px 0;
             width: 100%;
-            clear: both; /* Para evitar que el contenido se superponga */
+            clear: both; 
         }
 
         .content {
@@ -127,8 +124,8 @@ $result = $conn->query("SELECT id, titulo, contenido, fecha_publicacion FROM not
         .news {
             border: 1px solid #ccc;
             padding: 20px;
-            height: calc(100% - 40px); /* Restamos el padding superior e inferior */
-            overflow-y: auto; /* Para permitir desplazamiento si el contenido es largo */
+            height: calc(100% - 40px); 
+            overflow-y: auto; 
         }
 
         .news-item {
@@ -140,8 +137,8 @@ $result = $conn->query("SELECT id, titulo, contenido, fecha_publicacion FROM not
         }
 
         .menu li.active {
-            background-color: #18b025; /* Color de fondo azul para la página activa */
-            color: #fff; /* Color de texto blanco para la página activa */
+            background-color: #18b025; 
+            color: #fff; 
         }
     </style>
 </head>
@@ -152,7 +149,6 @@ $result = $conn->query("SELECT id, titulo, contenido, fecha_publicacion FROM not
 <div class="container">
     <div class="menu-container" id="menu">
         <div class="profile">
-            <!-- Mostrar nombre y cargo del usuario -->
             <h3><?php echo htmlspecialchars($nombre); ?></h3>
             <p>Cargo: Supervisor</p>
         </div>
@@ -209,11 +205,9 @@ $result = $conn->query("SELECT id, titulo, contenido, fecha_publicacion FROM not
         var menu = document.getElementById("menu");
         menu.classList.toggle("active");
     }
+    
+    var currentPage = "inicio"; 
 
-    // Obtener el nombre de la página actual (por ejemplo, "inicio")
-    var currentPage = "inicio"; // Aquí debes reemplazar con el nombre de tu página actual
-
-    // Agregar la clase "active" al elemento de menú correspondiente a la página actual
     document.getElementById(currentPage).classList.add("active");
 </script>
 
