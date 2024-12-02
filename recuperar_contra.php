@@ -1,5 +1,5 @@
 <?php
-// Iniciar sesión
+
 session_start();
 include 'conexion.php';
 
@@ -10,19 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Verificar si las contraseñas coinciden
+   
     if ($new_password !== $confirm_password) {
         $mensaje = "Las contraseñas no coinciden.";
     } else {
-        // Verificar si la cédula existe
+       
         $sql = "SELECT * FROM usuario WHERE cedula = '$cedula'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            // Encriptar la nueva contraseña
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
 
-            // Actualizar la contraseña en la base de datos
+            
             $update_sql = "UPDATE usuario SET contrasena = '$hashed_password' WHERE cedula = '$cedula'";
             if ($conn->query($update_sql) === TRUE) {
                 $mensaje = "Contraseña actualizada con éxito.";
