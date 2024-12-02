@@ -18,18 +18,18 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(14, 17, 183, 0.4);
-            text-align: center; /* Alineación centrada */
+            text-align: center; 
         }
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
         .header img {
-            width: 100px; /* Tamaño del logo */
+            width: 100px; 
             height: auto;
         }
         .h2 {
-            color: #0632ad; /* Cambiado a azul */
+            color: #0632ad; 
         }
 
         input[type="text"], input[type="password"], input[type="email"], input[type="date"], select {
@@ -48,17 +48,17 @@
             padding: 10px;
             border: none;
             border-radius: 5px;
-            background-color: #0632ad; /* Cambiado a azul */
+            background-color: #0632ad; 
             color: #fff;
             cursor: pointer;
         }
         input[type="submit"]:hover {
-            background-color: #0a59cf; /* Color más oscuro al pasar el cursor */
+            background-color: #0a59cf; 
         }
         .confirmation {
             display: none;
             margin-top: 20px;
-            background-color: #dff0d8; /* Color de fondo */
+            background-color: #dff0d8; 
             padding: 10px;
             border-radius: 5px;
         }
@@ -96,8 +96,6 @@
         <form id="registrationForm" action="registrousu.php" method="POST">
             <input type="text" name="nombres" placeholder="Nombre Completo" required>
             
-
-            <!-- Validación del correo electrónico  -->
             <input type="text" name="cedula" placeholder="Cédula" required>
             <select name="cargo" required>
                 <option value="" disabled selected>Selecciona tu cargo</option>
@@ -105,18 +103,15 @@
                 <option value="Conductor">Conductor</option>
             </select>
 
-            <!-- Contraseña con requisitos -->
             <input type="password" name="password" class="box" placeholder="Contraseña" required 
                    minlength="8" 
                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                    title="La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial (@, $, !, %, etc.)">
 
-            <!-- Confirmación de la contraseña -->
             <input type="password" name="confirmar_contraseña" placeholder="Confirmar Contraseña" required 
                    oninput="checkPasswordMatch()">
             <span id="passwordError" class="error"></span>
 
-            <!-- Aceptar términos y condiciones -->
             <input type="checkbox" id="terminos_condiciones" required>
             <label for="terminos_condiciones">Acepto los términos y condiciones</label>
 
@@ -133,10 +128,10 @@
         function showConfirmation() {
             var confirmationMessage = document.getElementById('confirmationMessage');
             confirmationMessage.style.display = 'block';
-            return false; // Evitar que el formulario se envíe realmente
+            return false; 
         }
 
-        // Función para verificar si las contraseñas coinciden
+        
         function checkPasswordMatch() {
             var password = document.querySelector('input[name="password"]');
             var confirmPassword = document.querySelector('input[name="confirmar_contraseña"]');
