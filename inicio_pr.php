@@ -1,22 +1,19 @@
 <?php
-// Iniciar sesión
 session_start();
 
-// Incluir la conexión a la base de datos
-include 'conexion.php'; // Asegúrate de que el archivo conexion.php esté en el mismo directorio o ajusta la ruta si está en otro lugar
 
-// Verificar si el usuario ha iniciado sesión y tiene el rol adecuado
+include 'conexion.php'; 
+
+
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] != 2) {
-    // Redirigir al inicio de sesión si no tiene permiso
     header("Location: login.php");
     exit();
 }
 
-// Recuperar datos del usuario desde la sesión
-$nombre = $_SESSION['usuario']; // Nombre del usuario
-$cargo = isset($_SESSION['cargo']) ? $_SESSION['cargo'] : "Sin definir"; // Cargo del usuario, si está disponible
+$nombre = $_SESSION['usuario']; 
+$cargo = isset($_SESSION['cargo']) ? $_SESSION['cargo'] : "Sin definir"; 
 
-// Recuperar noticias de la base de datos
+
 $result = $conn->query("SELECT titulo, contenido, fecha_publicacion FROM noticias ORDER BY fecha_publicacion DESC");
 ?>
 <!DOCTYPE html>
@@ -26,7 +23,6 @@ $result = $conn->query("SELECT titulo, contenido, fecha_publicacion FROM noticia
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel de Menú y Novedades</title>
 <style>
-    /* Tus estilos CSS */
     body {
         font-family: poppins, sans-serif;
         margin: 0;
@@ -78,8 +74,8 @@ $result = $conn->query("SELECT titulo, contenido, fecha_publicacion FROM noticia
     .news {
         border: 1px solid #ccc;
         padding: 20px;
-        height: calc(100% - 40px); /* Restamos el padding superior e inferior */
-        overflow-y: auto; /* Para permitir desplazamiento si el contenido es largo */
+        height: calc(100% - 40px); 
+        overflow-y: auto; 
     }
 
     .news-item {
@@ -104,7 +100,6 @@ $result = $conn->query("SELECT titulo, contenido, fecha_publicacion FROM noticia
 <div class="container">
     <div class="menu-container" id="menu">
         <div class="profile">
-            <!-- Mostrar nombre y cargo del usuario -->
             <h3><?php echo htmlspecialchars($nombre); ?></h3>
             <p>Cargo: Conductor</p>
         </div>
